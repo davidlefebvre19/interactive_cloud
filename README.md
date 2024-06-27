@@ -20,8 +20,8 @@ Ce projet nécessite les bibliothèques Python suivantes :
 
 1. **Cloner le dépôt :**
     ```sh
-    git clone https://github.com/votre-utilisateur/projet-nuage-interactif.git
-    cd projet-nuage-interactif
+    git clone https://github.com/davidlefebvre19/interactive_cloud
+    cd interactive_cloud
     ```
 
 2. **Créer et activer un environnement virtuel :**
@@ -57,6 +57,8 @@ Ce projet nécessite les bibliothèques Python suivantes :
 7. **Lancer le script principal :**
     ```sh
     sudo python main/main.py
+    sudo python main/animation_controller.py
+    sudo python main/sound_controller.py
     ```
 
 ## Utilisation
