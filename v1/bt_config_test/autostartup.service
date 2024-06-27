@@ -1,0 +1,14 @@
+[Unit]
+Description=cloud
+
+[Service]
+Type=simple
+ExecStart=/home/rpi/pythonvenv/bin/python3 /home/rpi/Code/oldmain.py
+WorkingDirectory=/home/rpi/Code
+User=rpi
+Group=rpi
+Environment="PATH=/home/rpi/pythonvenv/bin"
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

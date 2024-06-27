@@ -1,0 +1,16 @@
+[Unit]
+Description=Bluetooth Python Agent Service
+After=bluetooth_setup.service
+Requires=bluetooth_setup.service
+
+[Service]
+Type=simple
+ExecStart=/home/rpi/pythonvenv/bin/python3 /home/rpi/btconf.py
+WorkingDirectory=/home/rpi
+User=root
+Group=root
+Environment="PATH=/home/rpi/pythonvenv/bin"
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

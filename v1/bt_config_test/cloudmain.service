@@ -1,0 +1,15 @@
+[Unit]
+Description=Cloud main program
+After=bluetooth.target network-online.target bt_conf.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/home/rpi/pythonvenv/bin/python3 /home/rpi/mon_projet.py
+WorkingDirectory=/home/rpi
+User=rpi
+Group=rpi
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

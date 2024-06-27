@@ -1,0 +1,12 @@
+[Unit]
+Description=Bluetooth Setup Script
+
+[Service]
+Type=oneshot
+ExecStart=/home/rpi/bluetooth_setup.sh
+WorkingDirectory=/home/rpi
+User=rpi
+Group=rpi
+
+[Install]
+WantedBy=multi-user.target
