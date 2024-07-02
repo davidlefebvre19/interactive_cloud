@@ -3,9 +3,9 @@ import time
 
 GPIO.setmode(GPIO.BCM)
 
-print "+-----------------------------------------------------------+"
-print "|   Mesure de distance par le capteur ultrasonore HC-SR04   |"
-print "+-----------------------------------------------------------+"
+print("+-----------------------------------------------------------+")
+print("|   Mesure de distance par le capteur ultrasonore HC-SR04   |")
+print("+-----------------------------------------------------------+")
 
 Trig = 23          # Entree Trig du HC-SR04 branchee au GPIO 23
 Echo = 24         # Sortie Echo du HC-SR04 branchee au GPIO 24
@@ -33,6 +33,6 @@ for x in range(repet):    # On prend la mesure "repet" fois
 
    distance = round((finImpulsion - debutImpulsion) * 340 * 100 / 2, 1)  ## Vitesse du son = 340 m/s
 
-   print "La distance est de : ",distance," cm"
+   print("La distance est de : ",distance," cm")
 
 GPIO.cleanup()
