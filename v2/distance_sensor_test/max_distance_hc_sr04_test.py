@@ -15,7 +15,7 @@ GPIO.setup(Echo,GPIO.IN)
 
 GPIO.output(Trig, False)
 
-repet = input("Entrez un nombre de repetitions de mesure : ")
+repet = int(input("Entrez un nombre de repetitions de mesure : "))
 
 for x in range(repet):    # On prend la mesure "repet" fois
 
