@@ -4,7 +4,7 @@ import neopixel
 
 # Configuration
 LED_COUNT = 5          # Number of LED pixels.
-LED_PIN = board.D18     # GPIO pin connected to the pixels (18 is PCM_DIN).
+LED_PIN = 12     # GPIO pin connected to the pixels (18 is PCM_DIN).
 LED_BRIGHTNESS = 0.5    # Set to 0 for darkest and 1 for brightest
 
 # Create NeoPixel object
