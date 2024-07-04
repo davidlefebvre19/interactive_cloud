@@ -11,6 +11,7 @@ GPIO.setup(Echo, GPIO.IN)
 
 GPIO.output(Trig, False)
 
+
 # Calibration before detecting movement
 # We wait until the sensor is immobile and in range
 
@@ -38,11 +39,12 @@ def calibration():
             previous_dist = distance
             pass
         else:
-            if abs(int(previous_dist-distance)) <= 15:
-                stable_count+=1
+            if abs(int(previous_dist - distance)) <= 15:
+                stable_count += 1
             previous_dist = distance
 
     print("calibration done !")
+
 
 def sensing_movement(passages):
     previous_dist = None
@@ -73,3 +75,9 @@ def sensing_movement(passages):
             previous_dist = distance
 
     print("Test done !")
+
+
+if __name__ == "main":
+    calibration()
+    passages = input("nombre de passages requis :")
+    sensing_movement(passages)
