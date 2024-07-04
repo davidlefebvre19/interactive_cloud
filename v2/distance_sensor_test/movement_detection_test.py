@@ -78,7 +78,7 @@ def sensing_movement(passages):
     print("Test done !")
 
 
-if __name__ == "main":
+if __name__ == "__main__":
     calibration()
     passages = input("nombre de passages requis :")
     sensing_movement(passages)
