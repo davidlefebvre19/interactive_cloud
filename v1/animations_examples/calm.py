@@ -3,7 +3,7 @@ import time
 
 # Configuration des LED
 PIN = 12
-NUM_LEDS = 17
+NUM_LEDS = 50
 BRIGHTNESS = 255
 NOMBRE_HALO = 5
 HALO_SIZE = 7
