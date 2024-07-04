@@ -80,5 +80,5 @@ def sensing_movement(passages):
 
 if __name__ == "__main__":
     calibration()
-    passages = input("nombre de passages requis :")
+    passages = int(input("nombre de passages requis :"))
     sensing_movement(passages)
