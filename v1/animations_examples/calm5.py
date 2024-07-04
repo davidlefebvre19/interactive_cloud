@@ -6,7 +6,7 @@ import time
 PIN = 12
 NUM_LEDS = 50
 BRIGHTNESS = 255
-DELAY = 0.05
+DELAY = 0.02
 NUM_SECTIONS = 5
 
 # Initialisation de la bande de LEDs
