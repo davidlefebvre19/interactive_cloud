@@ -26,7 +26,8 @@ def clear_halo(position, size):
         strip.setPixelColor(led_index, Color(0, 0, 0))
 
 def move_halos():
-    positions = [i * (NUM_LEDS // NUM_HALOS) for i in range(NUM_HALOS)]  # Initialisation des positions des halos
+    # Initialisation des positions des halos de manière équidistante
+    positions = [i * (NUM_LEDS // NUM_HALOS) for i in range(NUM_HALOS)]
 
     while True:
         # Éteindre les LEDs derrière les halos précédents
@@ -35,7 +36,7 @@ def move_halos():
 
         # Mettre à jour les positions des halos
         for i in range(NUM_HALOS):
-            positions[i] = (positions[i] + HALO_SIZE) % NUM_LEDS
+            positions[i] = (positions[i] + 1) % NUM_LEDS
 
         # Vérifier que les halos ne se chevauchent pas
         for i in range(NUM_HALOS):
