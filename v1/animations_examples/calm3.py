@@ -5,9 +5,9 @@ import time
 PIN = 12
 NUM_LEDS = 50
 BRIGHTNESS = 255
-HALO_SIZE = 3  # Taille de chaque halo
+HALO_SIZE = 17  # Taille de chaque halo
 FADE_RATE = 5  # Vitesse du fondu
-DELAY = 0.05   # Délai entre chaque mise à jour d'animation
+DELAY = 0.02   # Délai entre chaque mise à jour d'animation
 
 # Initialisation de la bande de LEDs
 strip = Adafruit_NeoPixel(NUM_LEDS, PIN, 800000, 10, False, BRIGHTNESS)
