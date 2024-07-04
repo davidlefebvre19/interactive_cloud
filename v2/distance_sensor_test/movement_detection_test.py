@@ -45,9 +45,10 @@ def calibration():
             previous_dist = distance
 
     print("calibration done !")
+    return previous_dist
 
 
-def sensing_movement(passages):
+def sensing_movement(passages, max_dist):
     previous_dist = None
     passage = 0
     print("Movement detection test start")
@@ -70,7 +71,7 @@ def sensing_movement(passages):
             previous_dist = distance
             pass
         else:
-            if abs(int(previous_dist - distance)) >= 15:
+            if abs(int(previous_dist - distance)) >= 15 and distance <= max_dist:
                 print("movement detected ! movements counter : ", passage)
                 passage += 1
             previous_dist = distance
@@ -79,6 +80,6 @@ def sensing_movement(passages):
 
 
 if __name__ == "__main__":
-    calibration()
+    max_dist = calibration()
     passages = int(input("nombre de passages requis :"))
-    sensing_movement(passages)
+    sensing_movement(passages, max_dist)
