@@ -4,7 +4,7 @@ from rpi_ws281x import *
 
 # Configuration des LED
 PIN = 12
-NUM_LEDS = 17
+NUM_LEDS = 300
 BRIGHTNESS = 100
 FADE_OUT_RATE = 5
 
