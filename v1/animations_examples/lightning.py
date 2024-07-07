@@ -3,7 +3,7 @@ import time
 
 # Configuration des LED
 PIN = 12
-NUM_LEDS = 17
+NUM_LEDS = 300
 BRIGHTNESS = 255
 DELAY = 0.05  # 10ms
 
