@@ -1,15 +1,27 @@
-from rpi_ws281x import *
 import time
+import random
+from rpi_ws281x import *
 
 # Configuration des LED
 PIN = 12
 NUM_LEDS = 300
 BRIGHTNESS = 255
 DELAY = 0.05  # 10ms
+ZONE_LENGTH = 5  # Longueur de chaque zone
+FADE_OUT_RATE = 10  # Vitesse du fondu
+LIGHTNING_COLOR = Color(255, 255, 0)
 
 # Création de l'objet strip pour contrôler les LED
 strip = Adafruit_NeoPixel(NUM_LEDS, PIN, 800000, 10, False, BRIGHTNESS)
 strip.begin()
+
+# Définition des couleurs
+red = Color(255, 0, 0)
+yellow = Color(255, 255, 0)
+blue = Color(0, 0, 255)
+colors = [red, yellow, blue]
+currentColorIndex = 0
+
 
 def colorWipe(strip, color, wait_ms=10):
     """ Wipe color across display a pixel at a time. """
@@ -17,24 +29,6 @@ def colorWipe(strip, color, wait_ms=10):
         strip.setPixelColor(i, color)
         strip.show()
         time.sleep(wait_ms)
-import time
-import random
-from rpi_ws281x import *
-
-# Configuration des LED
-PIN = 12
-NUM_LEDS = 17
-BRIGHTNESS = 255
-ZONE_LENGTH = 5  # Longueur de chaque zone
-FADE_OUT_RATE = 10  # Vitesse du fondu
-
-# Initialisation de la bande de LEDs
-strip = Adafruit_NeoPixel(NUM_LEDS, PIN, 800000, 10, False, BRIGHTNESS)
-strip.begin()
-
-# Couleur de l'éclair (jaune)
-LIGHTNING_COLOR = Color(255, 255, 0)
-
 
 def lightning_effect(strip, zone, fade_out_rate):
     """ Créer un effet d'éclair dans une zone spécifique """
@@ -64,20 +58,6 @@ def lightning_effect(strip, zone, fade_out_rate):
             strip.setPixelColor(i, Color(brightness, brightness, 0))
         strip.show()
         time.sleep(0.01)
-
-
-try:
-    while True:
-        for zone in range(NUM_LEDS // ZONE_LENGTH):
-            if random.choice([True, False]):  # 50% de chance d'activer l'éclair
-                lightning_effect(strip, zone, FADE_OUT_RATE)
-        time.sleep(random.uniform(0.1, 0.5))  # Intervalle aléatoire entre les éclairs
-
-except KeyboardInterrupt:
-    # Éteindre toutes les LEDs à l'arrêt du programme
-    for i in range(strip.numPixels()):
-        strip.setPixelColor(i, Color(0, 0, 0))
-    strip.show()
 def wheel(pos):
     """ Generate rainbow colors across 0-255 positions. """
     if pos < 85:
@@ -89,12 +69,7 @@ def wheel(pos):
         pos -= 170
         return Color(0, pos * 3, 255 - pos * 3)
 
-# Définition des couleurs
-red = Color(255, 0, 0)
-yellow = Color(255, 255, 0)
-blue = Color(0, 0, 255)
-colors = [red, yellow, blue]
-currentColorIndex = 0
+
 
 try:
     while True:
