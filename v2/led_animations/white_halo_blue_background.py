@@ -6,7 +6,7 @@ PIN = 12
 NUM_LEDS = 300
 BRIGHTNESS = 255
 MIN_BRIGHTNESS = int(BRIGHTNESS * 0.20)  # 20% de la luminosité maximale
-HALO_SIZE = 10
+HALO_SIZE = 50
 DELAY = 0.05
 
 # Initialisation de la bande de LEDs
