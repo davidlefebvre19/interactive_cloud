@@ -12,7 +12,8 @@ DELAY = 0.05
 
 # Couleurs de bleu
 BLUE_DARK = Color(0, 0, MIN_BRIGHTNESS)
-BLUE_LIGHT = Color(0, int(BRIGHTNESS * 0.70), int(BRIGHTNESS * 0.70))  # Cyan clair
+BLUE_LIGHT = Color(0, 0, int(BRIGHTNESS * 0.50))  # Bleu clair avec 50% de la luminosité maximale
+
 # Initialisation de la bande de LEDs
 strip = Adafruit_NeoPixel(NUM_LEDS, PIN, 800000, 10, False, BRIGHTNESS)
 strip.begin()
