@@ -1,5 +1,6 @@
-from rpi_ws281x import Adafruit_NeoPixel, Color
 import time
+import random
+from rpi_ws281x import Adafruit_NeoPixel, Color
 
 # Configuration des LED
 PIN = 12
@@ -7,70 +8,55 @@ NUM_LEDS = 300
 BRIGHTNESS = 255
 MIN_BRIGHTNESS = int(BRIGHTNESS * 0.20)  # 20% de la luminosité maximale
 HALO_SIZE = 50
-FADE_STEP = 10  # Pas du fondu en millisecondes
 DELAY = 0.05
+
+# Couleurs de bleu
+BLUE_DARK = Color(0, 0, MIN_BRIGHTNESS)
+BLUE_LIGHT = Color(0, 0, int(BRIGHTNESS * 0.50))  # Bleu clair avec 50% de la luminosité maximale
 
 # Initialisation de la bande de LEDs
 strip = Adafruit_NeoPixel(NUM_LEDS, PIN, 800000, 10, False, BRIGHTNESS)
 strip.begin()
 
 def set_background():
-    """Allume le fond avec une couleur bleu foncé."""
+    """Allume le fond avec une couleur bleu foncé ou bleu clair."""
     for i in range(NUM_LEDS):
-        strip.setPixelColor(i, Color(0, 0, MIN_BRIGHTNESS))
+        if random.random() < 0.5:
+            strip.setPixelColor(i, BLUE_DARK)
+        else:
+            strip.setPixelColor(i, BLUE_LIGHT)
     strip.show()
 
-def fade_in(pixel_index):
-    """Effet de fade-in pour une LED spécifique."""
-    current_color = strip.getPixelColor(pixel_index)
-    current_brightness = (current_color & 0xff0000) >> 16  # Extrait la composante rouge comme luminosité
-
-    for brightness in range(current_brightness, BRIGHTNESS + 1, FADE_STEP):
-        strip.setPixelColor(pixel_index, Color(brightness, brightness, brightness))
-        strip.show()
-        time.sleep(DELAY)
-
-def fade_out(pixel_index):
-    """Effet de fade-out pour une LED spécifique."""
-    current_color = strip.getPixelColor(pixel_index)
-    current_brightness = (current_color & 0xff0000) >> 16  # Extrait la composante rouge comme luminosité
-
-    for brightness in range(current_brightness, MIN_BRIGHTNESS - 1, -FADE_STEP):
-        strip.setPixelColor(pixel_index, Color(brightness, brightness, brightness))
-        strip.show()
-        time.sleep(DELAY)
-
-def move_halos(halo_size_1, halo_size_2):
-    position_1 = 0
-    position_2 = NUM_LEDS // 2  # Démarre le second halo à la moitié de la bande LED
+def move_halo(halo_size1, halo_size2):
+    position1 = 0
+    position2 = NUM_LEDS // 2  # Début de la deuxième moitié de la bande
 
     while True:
-        # Éteindre toutes les LEDs avec un fade-out progressif
-        for i in range(NUM_LEDS):
-            fade_out(i)
+        # Allumer le fond avec une couleur bleu foncé ou bleu clair
+        set_background()
 
-        # Allumer les LEDs pour le premier halo avec un fade-in progressif
-        for i in range(halo_size_1):
-            led_index = (position_1 + i) % NUM_LEDS
-            fade_in(led_index)
+        # Allumer le premier halo
+        for i in range(halo_size1):
+            led_index = (position1 + i) % NUM_LEDS
+            strip.setPixelColor(led_index, Color(BRIGHTNESS, BRIGHTNESS, BRIGHTNESS))
 
-        # Allumer les LEDs pour le second halo avec un fade-in progressif
-        for i in range(halo_size_2):
-            led_index = (position_2 + i) % NUM_LEDS
-            fade_in(led_index)
+        # Allumer le deuxième halo
+        for i in range(halo_size2):
+            led_index = (position2 + i) % NUM_LEDS
+            strip.setPixelColor(led_index, Color(BRIGHTNESS, BRIGHTNESS, BRIGHTNESS))
 
         # Mettre à jour l'affichage de la bande LED
         strip.show()
         time.sleep(DELAY)
 
         # Avancer les positions des halos
-        position_1 = (position_1 + 1) % NUM_LEDS
-        position_2 = (position_2 + 1) % NUM_LEDS
+        position1 = (position1 + 1) % NUM_LEDS
+        position2 = (position2 + 1) % NUM_LEDS
 
 try:
-    halo_size_1 = HALO_SIZE  # Taille du premier halo
-    halo_size_2 = HALO_SIZE  # Taille du second halo
-    move_halos(halo_size_1, halo_size_2)
+    halo_size1 = HALO_SIZE  # Taille du premier halo
+    halo_size2 = HALO_SIZE  // 2  # Taille du deuxième halo (par exemple, la moitié de la taille du premier)
+    move_halo(halo_size1, halo_size2)
 except KeyboardInterrupt:
     # Éteindre toutes les LEDs à l'arrêt du programme
     for i in range(strip.numPixels()):
