@@ -70,12 +70,11 @@ def wheel(pos):
         return Color(0, pos * 3, 255 - pos * 3)
 
 
-
 try:
     while True:
-        # Update the animation
-        colorWipe(strip, colors[currentColorIndex], DELAY)
-        currentColorIndex = (currentColorIndex + 1) % len(colors)
-
+        for zone in range(NUM_LEDS // ZONE_LENGTH):
+            if random.choice([True, False]):  # 50% de chance d'activer l'éclair
+                lightning_effect(strip, zone, FADE_OUT_RATE)
+        time.sleep(random.uniform(0.1, 0.5))  # Intervalle aléatoire entre les éclairs
 except KeyboardInterrupt:
     colorWipe(strip, Color(0, 0, 0), 10)
