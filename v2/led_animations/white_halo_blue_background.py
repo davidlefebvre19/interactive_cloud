@@ -3,7 +3,7 @@ import time
 
 # Configuration des LED
 PIN = 12
-NUM_LEDS = 50
+NUM_LEDS = 300
 BRIGHTNESS = 255
 MIN_BRIGHTNESS = int(BRIGHTNESS * 0.20)  # 20% de la luminosité maximale
 HALO_SIZE = 10
