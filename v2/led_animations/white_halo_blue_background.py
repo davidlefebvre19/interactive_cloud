@@ -39,7 +39,7 @@ def move_halo(halo_size):
         position = (position + 1) % NUM_LEDS
 
 try:
-    halo_size = 10  # Par exemple, un halo de 10 LEDs
+    halo_size = HALO_SIZE  # Par exemple, un halo de 10 LEDs
     move_halo(halo_size)
 except KeyboardInterrupt:
     # Éteindre toutes les LEDs à l'arrêt du programme
