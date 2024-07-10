@@ -50,7 +50,7 @@ def run_thunder():
         # Logique pour la gestion des LEDs
         for zone in range(NUM_LEDS // ZONE_LENGTH):
             if random.choice([True, False]):  # 50% de chance d'activer l'éclair
-                lightning_effect(strip, zone, FADE_OUT_RATE_LIGHTNING)
+                lightning_effect(zone, FADE_OUT_RATE_LIGHTNING)
         time.sleep(random.uniform(0.1, 0.5))  # Intervalle aléatoire entre les éclairs
         time.sleep(0.1)
 

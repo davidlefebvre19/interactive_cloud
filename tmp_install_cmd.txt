@@ -1,0 +1,3 @@
+sudo pip3 install rpi_ws281x --break-system-packages
+sudo pip3 install adafruit-circuitpython-neopixel --break-system-packages
+sudo python3 -m pip install --force-reinstall adafruit-blinka --break-system-packages
