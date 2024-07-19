@@ -104,6 +104,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     if max_dist != None:
         #While true may be needed here
         conn, addr = s.accept()
-        client_thread = threading.Thread(target=sensing_and_sending(), args=(max_dist, conn, addr))
+        client_thread = threading.Thread(target=sensing_and_sending, args=(max_dist, conn, addr))
         client_thread.start()
 
