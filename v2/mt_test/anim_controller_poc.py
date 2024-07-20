@@ -20,20 +20,25 @@ def run_threads_sequentially():
     lock = threading.Lock()
     stop_event = threading.Event()
 
-    # Création des instances de threads avec des tâches spécifiques
-    threads = [
-        StoppableThread("Thread A", lock, stop_event, task_a),
-        StoppableThread("Thread B", lock, stop_event, task_b),
-        StoppableThread("Thread C", lock, stop_event, task_c)
-    ]
+    # Création des threads avec des tâches spécifiques et des durées
+    task_a_thread = StoppableThread("Thread A", lock, stop_event, task_a, 5)  # 5 secondes pour tâche A
+    task_b_thread = StoppableThread("Thread B", lock, stop_event, task_b, 5)  # 5 secondes pour tâche B
+    task_c_thread = StoppableThread("Thread C", lock, stop_event, task_c, 5)  # 5 secondes pour tâche C
 
-    for thread in threads:
-        stop_event.clear()  # Réinitialiser l'événement d'arrêt
-        thread.start()
-        time.sleep(5)  # Laisser le thread fonctionner pendant 5 secondes
-        stop_event.set()  # Signal pour arrêter le thread
-        thread.join()  # Attendre que le thread se termine proprement
+    # Démarrage de task_a
+    task_a_thread.start()
+    task_a_thread.join()  # Attendre la fin de task_a
+
+    # Démarrage de task_b
+    task_b_thread.start()
+    time.sleep(3)  # Laisser task_b fonctionner pendant 3 secondes
+    stop_event.set()  # Activer stop_event pour interrompre task_b
+    task_b_thread.join()  # Attendre que task_b se termine
+
+    # Démarrage de task_c
+    task_c_thread.start()
+    task_c_thread.join()  # Attendre que task_c se termine
 
 run_threads_sequentially()
 
-print("Tous les threads ont été exécutés séquentiellement.")
+print("Tous les threads ont été exécutés et arrêtés.")
