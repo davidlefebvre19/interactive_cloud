@@ -29,8 +29,8 @@ def handle_cmd(task_queue, command, duration, stop_event):
         #stop_event.clear()
         print(str(i) + " commandes supprimées")
         # configurer commande thunder
-        task_queue.put((t, duration))
         task_queue.put(("stop",))
+        task_queue.put((t, duration))
 
 
 def cmdhandler(cmd_queue, task_queue, stop_event):
