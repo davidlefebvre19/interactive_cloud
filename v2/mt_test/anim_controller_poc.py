@@ -42,15 +42,13 @@ def run_threads_sequentially():
     tasks =[task_a, task_b, task_c]
 
     for i in range(4):
-        duration = random.randint(0, 8)
+        duration = random.randint(5, 8)
         print("duration: " + str(duration))
         t = StoppableThread("Thread "+str(i), lock, stop_event, random.choice(tasks), duration)
-        t.start()
-        time.sleep(5)
-        if duration > 5:
+        if i == 1:
             stop_event.set()
+        t.start()
         t.join()
-        stop_event.clear()
 
 
 
