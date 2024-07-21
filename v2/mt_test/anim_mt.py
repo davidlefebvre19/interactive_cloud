@@ -14,7 +14,7 @@ class StoppableThread(threading.Thread):
 def r(stop_event, duration):
     print(f"Animation rainbow démarrée pour {duration} secondes")
     start_time = time.time()
-    while not stop_event.is_set() or (time.time() - start_time) > duration:
+    while not stop_event.is_set() and (time.time() - start_time) < duration:
         print("LED strip en mode rainbow...")
         print(time.time() - start_time)
         time.sleep(1)
