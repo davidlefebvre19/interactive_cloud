@@ -21,8 +21,12 @@ def handle_cmd(task_queue, command, duration, stop_event):
     elif command == "t":
         stop_event.set()
         # vider les commandes précédentes
+        print("Commande thunder recue, suppression des commandes restantes !!!")
+        i = 0
         while not task_queue.empty():
             task_queue.get()
+            i += 1
+        print(str(i) + " commandes supprimées")
         # configurer commande thunder
         task_queue.put((t, duration))
         task_queue.put(("stop",))
@@ -42,6 +46,7 @@ def taskexecutor(task_queue, stop_event):
         task_data = task_queue.get()
         if task_data[0] == "stop":
             if CT and CT.is_alive():
+                print("interuption de l'animation actuelle !")
                 stop_event.set()
                 CT.join()
                 stop_event.clear()
