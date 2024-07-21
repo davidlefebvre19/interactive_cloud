@@ -23,6 +23,7 @@ def handle_cmd(task_queue, command, duration):
 def cmdhandler(cmd_queue, task_queue):
     while True:
         cmd = cmd_queue.get()
+        print(cmd)
         command, duration = cmd.split()
         handle_cmd(task_queue, command, duration)
 
