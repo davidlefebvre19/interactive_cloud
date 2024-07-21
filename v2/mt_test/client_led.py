@@ -4,19 +4,6 @@ import time
 from anim_mt import StoppableThread, r, c, t
 import queue
 
-class StoppableThread(threading.Thread):
-    def __init__(self, name, lock, stop_event, task, duration,  *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.name = name
-        self.lock = lock
-        self.stop_event = stop_event
-        self.task = task  # Stockage de la référence de la fonction, pas son exécution
-        self.duration = duration
-
-    def run(self):
-        with self.lock:
-            self.task(self.stop_event, self.name, self.duration)  # Appel de la tâche spécifiée
-
 def cmdlistener(cmd_queue):
     commands = ["r 5", "c 5", "t 5", "r 5", "c 5"]  # Example commands
     for command in commands:

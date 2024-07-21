@@ -1,4 +1,14 @@
 import time
+import threading
+class StoppableThread(threading.Thread):
+    def __init__(self, task, stop_event, duration, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.task = task
+        self.stop_event = stop_event
+        self.duration = duration
+
+    def run(self):
+        self.task(self.stop_event, self.duration)
 
 def task_a(stop_event, name, duration):
     print(f"{name} démarré")
