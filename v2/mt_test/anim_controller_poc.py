@@ -44,6 +44,7 @@ def run_threads_sequentially():
 
     for i in range(2):
         duration = random.randint(2, 7)
+        print("duration: " + str(duration))
         t = StoppableThread("Thread "+str(i), lock, stop_event, random.choice(tasks), duration)
         t.start()
         time.sleep(5)
