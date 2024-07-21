@@ -57,7 +57,6 @@ def main():
     executor_thread.start()
 
     listener_thread.join()
-    cmd_queue.put("exit")
     handler_thread.join()
     executor_thread.join()
 
