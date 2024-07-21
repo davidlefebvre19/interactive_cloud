@@ -7,7 +7,7 @@ def task_a(stop_event, name, duration):
         print(f"{name} en cours d'exécution...")
         time.sleep(1)
     if stop_event.is_set:
-        print("Thread stopped by stop event")
+        print(f"Thread {name} stopped by stop event")
     print(f"{name} arrêté proprement")
 
 def task_b(stop_event, name, duration):
