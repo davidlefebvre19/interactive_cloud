@@ -16,7 +16,6 @@ class StoppableThread(threading.Thread):
     def run(self):
         with self.lock:
             self.task(self.stop_event, self.name, self.duration)  # Appel de la tâche spécifiée
-        self.stop_event.clear()
 
 # Fonction pour démarrer et arrêter les threads séquentiellement
 def run_threads_sequentially():
@@ -51,6 +50,8 @@ def run_threads_sequentially():
         if duration > 5:
             stop_event.set()
         t.join()
+        stop_event.clear()
+
 
 
 
