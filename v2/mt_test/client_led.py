@@ -26,6 +26,7 @@ def handle_cmd(task_queue, command, duration, stop_event):
         while not task_queue.empty():
             task_queue.get()
             i += 1
+        stop_event.clear()
         print(str(i) + " commandes supprimées")
         # configurer commande thunder
         task_queue.put((t, duration))
