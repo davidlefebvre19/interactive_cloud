@@ -19,14 +19,14 @@ def handle_cmd(task_queue, command, duration, stop_event):
     elif command == "c":
         task_queue.put((c, duration))
     elif command == "t":
-        stop_event.set()
+        #stop_event.set()
         # vider les commandes précédentes
         print("Commande thunder recue, suppression des commandes restantes !!!")
         i = 0
         while not task_queue.empty():
             task_queue.get()
             i += 1
-        stop_event.clear()
+        #stop_event.clear()
         print(str(i) + " commandes supprimées")
         # configurer commande thunder
         task_queue.put((t, duration))
