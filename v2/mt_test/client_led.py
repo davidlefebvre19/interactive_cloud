@@ -13,11 +13,11 @@ def cmdlistener(cmd_queue):
 
 def handle_cmd(task_queue, command, duration):
     if command == "r":
-        task_queue.put(("r", duration))
+        task_queue.put((r, duration))
     elif command == "c":
-        task_queue.put(("c", duration))
+        task_queue.put((c, duration))
     elif command == "t":
-        task_queue.put(("t", duration))
+        task_queue.put((t, duration))
         task_queue.put(("stop",))
 
 def cmdhandler(cmd_queue, task_queue):
