@@ -8,7 +8,7 @@ import queue
 def cmdlistener(cmd_queue):
     commands = ["r 5", "c 5", "t 5", "r 5", "c 5"]  # Example commands
     for command in commands:
-        time.sleep(random.randint(3, 6))  # Simulate receiving commands at random intervals
+        time.sleep(random.randint(1, 3))  # Simulate receiving commands at random intervals
         cmd_queue.put(command)
         #print(f"Command received: {command}")
 
