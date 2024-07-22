@@ -69,7 +69,6 @@ def r(stop_event, duration):
         # Avancer les positions des halos
         position1 = (position1 + 1) % NUM_LEDS
         position2 = (position2 + 1) % NUM_LEDS
-        time.sleep(1)
     print("Animation rain terminée")
 
 def c(stop_event, duration):
