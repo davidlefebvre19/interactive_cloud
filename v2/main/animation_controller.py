@@ -20,7 +20,7 @@ def cmdlistener(cmd_queue):
             if len(data.decode().split()) == 2:
                 print(data)
                 print(type(data))
-                cmd_queue.put(data)
+                cmd_queue.put(str(data))
 
 
 def handle_cmd(task_queue, command, duration):
