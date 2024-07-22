@@ -89,7 +89,7 @@ def sensing_and_sending(max_dist, conn, addr):
             else:
                 # Chill ...
                 print("no movement detected... calm / rain mecanism")
-                cmd = random.choice(anims) + str(duration)
+                cmd = random.choice(anims) + " " + str(duration)
             conn.sendall(cmd.encode())
             previous_dist = distance
 
