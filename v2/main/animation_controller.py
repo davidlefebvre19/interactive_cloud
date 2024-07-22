@@ -12,7 +12,7 @@ port = 65432
 def cmdlistener(cmd_queue):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((host, port))
-
+        print("client connected to server : listening")
         while True:
             data = s.recv(1024)
 
