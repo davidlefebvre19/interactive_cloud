@@ -1,6 +1,4 @@
-import random
 import threading
-import time
 from anim_mt import StoppableThread, r, c, t
 import queue
 import socket
@@ -20,11 +18,11 @@ def cmdlistener(cmd_queue):
                 break
 
             if len(data.decode().split()) == 2:
-                print("data")
+                print(data)
                 cmd_queue.put(data)
 
 
-def handle_cmd(task_queue, command, duration, stop_event):
+def handle_cmd(task_queue, command, duration):
     if command == "r":
         task_queue.put((r, duration))
     elif command == "c":
@@ -44,15 +42,17 @@ def handle_cmd(task_queue, command, duration, stop_event):
         task_queue.put((t, duration))
 
 
-def cmdhandler(cmd_queue, task_queue, stop_event):
+def cmdhandler(cmd_queue, task_queue):
+    print("cmd handler start")
     while True:
         cmd = cmd_queue.get()
         # print(cmd)
         command, duration = cmd.split()
-        handle_cmd(task_queue, command, duration, stop_event)
+        handle_cmd(task_queue, command, duration)
 
 
 def taskexecutor(task_queue, stop_event):
+    print("executor start")
     CT = None
     while True:
         task_data = task_queue.get()
@@ -75,7 +75,7 @@ def main():
     task_queue = queue.Queue()
 
     listener_thread = threading.Thread(target=cmdlistener, args=(cmd_queue,))
-    handler_thread = threading.Thread(target=cmdhandler, args=(cmd_queue, task_queue, stop_event,))
+    handler_thread = threading.Thread(target=cmdhandler, args=(cmd_queue, task_queue,))
     executor_thread = threading.Thread(target=taskexecutor, args=(task_queue, stop_event,))
 
     listener_thread.start()
