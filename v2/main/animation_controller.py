@@ -18,9 +18,9 @@ def cmdlistener(cmd_queue):
                 break
 
             if len(data.decode().split()) == 2:
-                print(data)
-                print(type(data))
-                cmd_queue.put(str(data))
+                print(data.decode())
+                print(type(data.decode()))
+                cmd_queue.put(data.decode())
 
 
 def handle_cmd(task_queue, command, duration):
