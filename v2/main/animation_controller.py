@@ -20,6 +20,7 @@ def cmdlistener(cmd_queue):
                 break
 
             if len(data.decode().split()) == 2:
+                print("data")
                 cmd_queue.put(data)
 
 
