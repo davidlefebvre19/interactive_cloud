@@ -1,46 +1,90 @@
-import socket
-import threading
 import random
+import threading
 import time
+from anim_mt import StoppableThread, r, c, t
+import queue
+import socket
 
-# Paramètres du serveur socket
 host = '127.0.0.1'
 port = 65432
 
 
-class AnimationController(threading.Thread):
+def cmdlistener(cmd_queue):
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((host, port))
 
-    def __init__(self, stop_event, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.chill = True
-        self.animationRunning = False
-        self.animationThread = None
-        self.stop_event = stop_event
+        while True:
+            data = s.recv(1024)
 
-    def thunder(self):
-        pass
+            if not data:
+                break
 
-    def calm(self):
-        pass
-
-    def rain(self):
-        pass
-
-    def stop(self):
-        pass
-
-    def run_animations(self):
-        pass
+            if len(data.decode().split()) == 2:
+                cmd_queue.put(data)
 
 
-animationController = AnimationController()
+def handle_cmd(task_queue, command, duration, stop_event):
+    if command == "r":
+        task_queue.put((r, duration))
+    elif command == "c":
+        task_queue.put((c, duration))
+    elif command == "t":
+        #stop_event.set()
+        # vider les commandes précédentes
+        print("Commande thunder recue, suppression des commandes restantes !!!")
+        i = 0
+        while not task_queue.empty():
+            task_queue.get()
+            i += 1
+        #stop_event.clear()
+        print(str(i) + " commandes supprimées")
+        # configurer commande thunder
+        task_queue.put(("stop",))
+        task_queue.put((t, duration))
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.connect((host, port))
 
+def cmdhandler(cmd_queue, task_queue, stop_event):
     while True:
-        data = s.recv(1024)
-        if not data:
-            break
+        cmd = cmd_queue.get()
+        # print(cmd)
+        command, duration = cmd.split()
+        handle_cmd(task_queue, command, duration, stop_event)
 
-        print(data.decode())
+
+def taskexecutor(task_queue, stop_event):
+    CT = None
+    while True:
+        task_data = task_queue.get()
+        if task_data[0] == "stop":
+            if CT and CT.is_alive():
+                print("interuption de l'animation actuelle !")
+                stop_event.set()
+                CT.join()
+                stop_event.clear()
+        else:
+            if CT and CT.is_alive():
+                CT.join()
+            CT = StoppableThread(task=task_data[0], stop_event=stop_event, duration=int(task_data[1]))
+            CT.start()
+
+
+def main():
+    stop_event = threading.Event()
+    cmd_queue = queue.Queue()
+    task_queue = queue.Queue()
+
+    listener_thread = threading.Thread(target=cmdlistener, args=(cmd_queue,))
+    handler_thread = threading.Thread(target=cmdhandler, args=(cmd_queue, task_queue, stop_event,))
+    executor_thread = threading.Thread(target=taskexecutor, args=(task_queue, stop_event,))
+
+    listener_thread.start()
+    handler_thread.start()
+    executor_thread.start()
+
+    listener_thread.join()
+    handler_thread.join()
+    executor_thread.join()
+
+
+if __name__ == "__main__":
+    main()
