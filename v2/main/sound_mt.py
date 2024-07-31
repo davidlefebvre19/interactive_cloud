@@ -14,7 +14,7 @@ class StoppableThread(threading.Thread):
     def run(self):
         self.task(self.stop_event, self.duration)
 
-def run_music(stop_event, duration, audio_file):
+def run_music(stop_event, audio_file, duration):
     # Convertir et jouer le fichier audio
     song = AudioSegment.from_file(audio_file)
     pygame.mixer.init(frequency=song.frame_rate)
