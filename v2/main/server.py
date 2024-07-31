@@ -103,7 +103,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     max_dist = calibration()
     if max_dist != None:
         #While true may be needed here
-        conn, addr = s.accept()
-        client_thread = threading.Thread(target=sensing_and_sending, args=(max_dist, conn, addr))
-        client_thread.start()
+        while True:
+            conn, addr = s.accept()
+            client_thread = threading.Thread(target=sensing_and_sending, args=(max_dist, conn, addr))
+            client_thread.start()
 
