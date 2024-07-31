@@ -18,7 +18,7 @@ def cmdlistener(cmd_queue):
                 break
 
             if len(data.decode().split()) == 2:
-                #print(data.decode())
+                print(data.decode())
                 #print(type(data.decode()))
                 cmd_queue.put(data.decode())
 
