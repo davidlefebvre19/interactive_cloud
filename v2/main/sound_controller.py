@@ -1,5 +1,5 @@
 import threading
-from anim_mt import StoppableThread, r, c, t
+from sound_mt import StoppableThread, r, c, t
 import queue
 import socket
 
