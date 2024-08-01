@@ -24,6 +24,7 @@ def run_music(stop_event, audio_file, duration):
     start_time = time.time()
 
     while not stop_event.is_set() and (time.time() - start_time) < duration:
+        print("current sound : " + str(audio_file))
         continue
 
     # Fade-out
