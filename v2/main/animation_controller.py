@@ -67,7 +67,7 @@ def taskexecutor(task_queue, stop_event):
                 print("stop event cleared")
         else:
             if CT and CT.is_alive():
-                break
+                continue
             CT = StoppableThread(task=task_data[0], stop_event=stop_event, duration=int(task_data[1]))
             CT.start()
 
