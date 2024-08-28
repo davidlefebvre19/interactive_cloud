@@ -65,7 +65,7 @@ def sensing_and_sending(max_dist, conn, addr):
         cmd = ""
 
         GPIO.output(Trig, True)
-        time.sleep(0.00001)
+        time.sleep(0.1)
         GPIO.output(Trig, False)
 
         while GPIO.input(Echo) == 0:  # Emission de l'ultrason
