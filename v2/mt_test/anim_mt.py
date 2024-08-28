@@ -47,7 +47,7 @@ def r(stop_event, duration):
     position1 = 0
     position2 = NUM_LEDS // 2  # Début de la deuxième moitié de la bande
 
-    while not stop_event.is_set() and (time.time() - start_time) < duration:
+    while not stop_event.is_set() :
         print("LED strip en mode rain...")
         if stop_event.is_set():
             print("STOP EVENT SET IN RAIN THREAD")
@@ -79,7 +79,7 @@ def r(stop_event, duration):
 def c(stop_event, duration):
     print(f"Animation chill démarrée pour {duration} secondes")
     start_time = time.time()
-    while not stop_event.is_set() and (time.time() - start_time) < duration:
+    while not stop_event.is_set() :
         print("LED strip en mode chill...")
         time.sleep(1)
     print("Animation chill terminée")
@@ -87,7 +87,7 @@ def c(stop_event, duration):
 def t(stop_event, duration):
     print(f"Animation thunder démarrée pour {duration} secondes")
     start_time = time.time()
-    while not stop_event.is_set() and (time.time() - start_time) < duration:
+    while not stop_event.is_set() :
         print("LED strip en mode thunder...")
         time.sleep(1)
     print("Animation thunder terminée")
