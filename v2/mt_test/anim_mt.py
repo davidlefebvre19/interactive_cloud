@@ -49,6 +49,10 @@ def r(stop_event, duration):
 
     while not stop_event.is_set() and (time.time() - start_time) < duration:
         print("LED strip en mode rain...")
+        if stop_event.is_set():
+            print("STOP EVENT SET IN RAIN THREAD")
+        else:
+            print("stop_event not set in rain thread")
         # Allumer le fond avec une couleur bleu foncé ou bleu clair
         set_background()
 

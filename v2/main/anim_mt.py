@@ -69,6 +69,10 @@ def c(stop_event, duration):
 
     while not stop_event.is_set() and (time.time() - start_time) < duration:
         print("LED strip en mode chill...")
+        if stop_event.is_set():
+            print("STOP EVENT SET IN RAIN THREAD")
+        else:
+            print("stop_event not set in rain thread")
         # Allumer le fond avec une couleur bleu foncé ou bleu clair
         set_background()
 
@@ -123,6 +127,10 @@ def r(stop_event, duration):
     start_time = time.time()
     while not stop_event.is_set() and (time.time() - start_time) < duration:
         print("LED strip en mode rain... ")
+        if stop_event.is_set():
+            print("STOP EVENT SET IN RAIN THREAD")
+        else:
+            print("stop_event not set in rain thread")
         rain_drop(strip)
         update_leds(strip)
         time.sleep(0.1)
@@ -169,6 +177,10 @@ def t(stop_event, duration):
     start_time = time.time()
     while not stop_event.is_set() and (time.time() - start_time) < duration:
         print("LED strip en mode thunder...")
+        if stop_event.is_set():
+            print("STOP EVENT SET IN RAIN THREAD")
+        else:
+            print("stop_event not set in rain thread")
         for zone in range(NUM_LEDS // ZONE_LENGTH):
             if random.choice([True, False]):  # 50% de chance d'activer l'éclair
                 lightning_effect(zone, FADE_OUT_RATE_LIGHTNING)

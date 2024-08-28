@@ -61,8 +61,10 @@ def taskexecutor(task_queue, stop_event):
             if CT and CT.is_alive():
                 print("interuption de l'animation actuelle !")
                 stop_event.set()
+                print("stop event set")
                 CT.join()
                 stop_event.clear()
+                print("stop event cleared")
         else:
             if CT and CT.is_alive():
                 CT.join()
