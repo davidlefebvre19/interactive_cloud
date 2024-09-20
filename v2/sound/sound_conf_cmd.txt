@@ -1,0 +1,15 @@
+Ajouter root au groupe audio :
+
+sudo usermod -aG audio root
+
+Modifier les permissions des périphériques audio :
+
+sudo chmod a+rw /dev/snd/*
+
+Convertir le fichier audio en un format compatible (16 bits) :
+
+ffmpeg -i wind.wav -acodec pcm_s16le wind_16bit.wav
+
+Lire le fichier audio sous sudo :
+
+sudo aplay wind_16bit.wav
