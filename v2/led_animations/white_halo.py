@@ -2,7 +2,7 @@ from rpi_ws281x import Adafruit_NeoPixel, Color
 import time
 
 # Configuration des LED
-PIN = 12
+PIN = 32
 NUM_LEDS = 50
 BRIGHTNESS = 255
 DELAY = 0.05
