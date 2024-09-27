@@ -6,6 +6,26 @@ Modifier les permissions des périphériques audio :
 
 sudo chmod a+rw /dev/snd/*
 
+Créer le fichier /root/.asoundrc :
+
+bash
+
+sudo nano /root/.asoundrc
+
+Ajouter la configuration suivante pour utiliser la carte audio des écouteurs (card 2) :
+
+bash
+
+pcm.!default {
+    type hw
+    card 2
+}
+
+ctl.!default {
+    type hw
+    card 2
+}
+
 Convertir le fichier audio en un format compatible (16 bits) :
 
 ffmpeg -i wind.wav -acodec pcm_s16le wind_16bit.wav
