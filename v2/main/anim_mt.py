@@ -68,6 +68,7 @@ def c(stop_event, duration):
     position2 = NUM_LEDS // 2  # Début de la deuxième moitié de la bande
 
     while not stop_event.is_set() and (time.time() - start_time) < duration:
+        
         print("LED strip en mode chill...")
         if stop_event.is_set():
             print("STOP EVENT SET IN RAIN THREAD")
