@@ -19,7 +19,7 @@ def play_sound_for_duration(file_path, duration):
 
 if __name__ == "__main__":
     # Spécifie le fichier audio et la durée
-    audio_file = 'wind_16bit.wav'  # Chemin vers ton fichier audio
+    audio_file = 'subdir/wind_16bit.wav'  # Chemin vers ton fichier audio
     play_duration = 5  # Durée en secondes
 
     # Appel de la fonction pour jouer le son pendant une durée spécifiée
