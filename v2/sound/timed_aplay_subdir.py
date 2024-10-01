@@ -24,7 +24,7 @@ if __name__ == "__main__":
     subfolder = 'subdir'  # Sous-dossier "sounds"
 
     # Nom du fichier audio
-    file_name = 'wind_16bit.wav'
+    file_name = 'thunder_16bit.wav'
 
     play_duration = 5  # Durée en secondes
 
