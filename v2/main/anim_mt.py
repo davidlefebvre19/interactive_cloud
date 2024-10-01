@@ -3,6 +3,8 @@ import time
 from rpi_ws281x import Adafruit_NeoPixel, Color
 import random
 from art import *
+import os
+import subprocess
 
 # Configuration des LED
 PIN = 12
@@ -36,6 +38,9 @@ LIGHTNING_COLOR = Color(255, 255, 0)
 strip = Adafruit_NeoPixel(NUM_LEDS, PIN, 800000, 10, False, BRIGHTNESS)
 strip.begin()
 
+# Sound config
+script_dir = os.path.dirname(os.path.abspath(__file__))
+subfolder = 'sounds'
 
 class StoppableThread(threading.Thread):
     def __init__(self, task, stop_event, duration, *args, **kwargs):
@@ -67,8 +72,11 @@ def c(stop_event, duration):
     position1 = 0
     position2 = NUM_LEDS // 2  # Début de la deuxième moitié de la bande
 
+    audio_file = os.path.join(script_dir, subfolder, "wind_16bit.wav")
+
+    process = subprocess.Popen(['sudo', 'aplay', audio_file])
     while not stop_event.is_set() and (time.time() - start_time) < duration:
-        
+
         print("LED strip en mode chill...")
         if stop_event.is_set():
             print("STOP EVENT SET IN RAIN THREAD")
@@ -97,6 +105,7 @@ def c(stop_event, duration):
     for i in range(strip.numPixels()):
         strip.setPixelColor(i, Color(0, 0, 0))
     strip.show()
+    process.terminate()
     print("Animation chill terminée")
 
 
@@ -126,6 +135,11 @@ def rain_drop(strip):
 def r(stop_event, duration):
     print(f"Animation rain démarrée pour {duration} secondes")
     start_time = time.time()
+
+    audio_file = os.path.join(script_dir, subfolder, "rain_16bit.wav")
+
+    process = subprocess.Popen(['sudo', 'aplay', audio_file])
+
     while not stop_event.is_set() and (time.time() - start_time) < duration:
         print("LED strip en mode rain... ")
         if stop_event.is_set():
@@ -138,6 +152,7 @@ def r(stop_event, duration):
     for i in range(strip.numPixels()):
         strip.setPixelColor(i, Color(0, 0, 0))
     strip.show()
+    process.terminate()
     print("Animation rain terminée")
 
 
@@ -176,6 +191,11 @@ def lightning_effect(zone, fade_out_rate):
 def t(stop_event, duration):
     print(f"Animation thunder démarrée pour {duration} secondes")
     start_time = time.time()
+
+    audio_file = os.path.join(script_dir, subfolder, "thunder_16bit.wav")
+
+    process = subprocess.Popen(['sudo', 'aplay', audio_file])
+
     while not stop_event.is_set() and (time.time() - start_time) < duration:
         print("LED strip en mode thunder...")
         if stop_event.is_set():
@@ -190,4 +210,5 @@ def t(stop_event, duration):
     for i in range(strip.numPixels()):
         strip.setPixelColor(i, Color(0, 0, 0))
     strip.show()
+    process.terminate()
     print("Animation thunder terminée")
