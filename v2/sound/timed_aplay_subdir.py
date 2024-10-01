@@ -21,7 +21,7 @@ def play_sound_for_duration(subfolder, file_name, duration):
 
 if __name__ == "__main__":
     # Nom du sous-dossier où se trouve le fichier audio
-    subfolder = 'sounds'  # Sous-dossier "sounds"
+    subfolder = 'subdir'  # Sous-dossier "sounds"
 
     # Nom du fichier audio
     file_name = 'wind_16bit.wav'
