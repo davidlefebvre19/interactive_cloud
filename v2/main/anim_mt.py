@@ -52,6 +52,30 @@ class StoppableThread(threading.Thread):
     def run(self):
         self.task(self.stop_event, self.duration)
 
+def fade_to_black(strip, steps=50, delay=0.05):
+    # Réduction progressive de la luminosité
+    for step in range(steps):
+        for i in range(strip.numPixels()):
+            # Récupère la couleur actuelle de chaque LED
+            current_color = strip.getPixelColor(i)
+            r = (current_color >> 16) & 0xFF
+            g = (current_color >> 8) & 0xFF
+            b = current_color & 0xFF
+
+            # Réduit progressivement les composantes RGB
+            new_r = max(0, int(r * (steps - step) / steps))
+            new_g = max(0, int(g * (steps - step) / steps))
+            new_b = max(0, int(b * (steps - step) / steps))
+
+            # Applique la nouvelle couleur avec luminosité réduite
+            strip.setPixelColor(i, Color(new_r, new_g, new_b))
+        strip.show()
+        time.sleep(delay)
+
+    # S'assurer que tout est bien éteint à la fin
+    for i in range(strip.numPixels()):
+        strip.setPixelColor(i, Color(0, 0, 0))
+    strip.show()
 
 ########################################### CHILL
 
@@ -102,8 +126,7 @@ def c(stop_event, duration):
         # Avancer les positions des halos
         position1 = (position1 + 1) % NUM_LEDS
         position2 = (position2 + 1) % NUM_LEDS
-    for i in range(strip.numPixels()):
-        strip.setPixelColor(i, Color(0, 0, 0))
+    fade_to_black(strip)
     strip.show()
     process.terminate()
     print("Animation chill terminée")
@@ -149,8 +172,7 @@ def r(stop_event, duration):
         rain_drop(strip)
         update_leds(strip)
         time.sleep(0.1)
-    for i in range(strip.numPixels()):
-        strip.setPixelColor(i, Color(0, 0, 0))
+    fade_to_black(strip)
     strip.show()
     process.terminate()
     print("Animation rain terminée")
@@ -207,8 +229,7 @@ def t(stop_event, duration):
                 lightning_effect(zone, FADE_OUT_RATE_LIGHTNING)
         time.sleep(random.uniform(0.1, 0.5))  # Intervalle aléatoire entre les éclairs
         time.sleep(0.1)
-    for i in range(strip.numPixels()):
-        strip.setPixelColor(i, Color(0, 0, 0))
+    fade_to_black(strip)
     strip.show()
     process.terminate()
     print("Animation thunder terminée")
