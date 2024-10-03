@@ -23,6 +23,10 @@ GPIO.setup(Echo, GPIO.IN)
 
 GPIO.output(Trig, False)
 
+# delay on thunder mecanism
+delay_on_thunder = False
+delay_status = 10
+
 def calibration():
     stable_count = 0
     previous_dist = None
@@ -81,15 +85,22 @@ def sensing_and_sending(max_dist, conn, addr):
             pass
         else:
             duration = random.randint(15, 25)
-            if abs(int(previous_dist - distance)) >= 15 and distance <= max_dist:
+            if abs(int(previous_dist - distance)) >= 15 and distance <= max_dist and not delay_on_thunder:
                 # Movement detected !
                 print("movement detected -> triggering thunder mecanism !")
-                cmd = "t " + str(duration)
+                cmd = "t " + str(10)
+                delay_on_thunder = True
                 print(cmd)
             else:
                 # Chill ...
                 print("no movement detected... calm / rain mecanism")
                 cmd = random.choice(anims) + " " + str(duration)
+                if delay_on_thunder:
+                    delay_status = delay_status - 1
+                    if delay_status == 0:
+                        delay_on_thunder = False
+                        delay_status = 10
+
             conn.sendall(cmd.encode())
             previous_dist = distance
 
