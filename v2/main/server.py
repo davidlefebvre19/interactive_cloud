@@ -23,9 +23,7 @@ GPIO.setup(Echo, GPIO.IN)
 
 GPIO.output(Trig, False)
 
-# delay on thunder mecanism
-delay_on_thunder = False
-delay_status = 10
+
 
 def calibration():
     stable_count = 0
@@ -63,6 +61,11 @@ def sensing_and_sending(max_dist, conn, addr):
     passage = 0
     print("Movement detection test start")
     # Another mecanism than while true may be needed here
+
+    # delay on thunder mecanism
+    delay_on_thunder = False
+    delay_status = 10
+
     while True:
         time.sleep(1)
 
