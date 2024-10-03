@@ -64,7 +64,7 @@ def sensing_and_sending(max_dist, conn, addr):
 
     # delay on thunder mecanism
     delay_on_thunder = False
-    delay_status = 15
+    delay_status = 30
 
     while True:
         time.sleep(1)
@@ -102,7 +102,7 @@ def sensing_and_sending(max_dist, conn, addr):
                     delay_status = delay_status - 1
                     if delay_status == 0:
                         delay_on_thunder = False
-                        delay_status = 15
+                        delay_status = 30
 
             conn.sendall(cmd.encode())
             previous_dist = distance
