@@ -30,7 +30,7 @@ def color_cycle(strip, wait_ms=20):
         time.sleep(wait_ms/1000.0)
 
 try:
-    for i in range(30):
+    for i in range(1):
         color_cycle(strip)
 
     strip.fill((0, 0, 0))
