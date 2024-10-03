@@ -80,7 +80,7 @@ def sensing_and_sending(max_dist, conn, addr):
             previous_dist = distance
             pass
         else:
-            duration = random.randint(10, 20)
+            duration = random.randint(15, 25)
             if abs(int(previous_dist - distance)) >= 15 and distance <= max_dist:
                 # Movement detected !
                 print("movement detected -> triggering thunder mecanism !")
