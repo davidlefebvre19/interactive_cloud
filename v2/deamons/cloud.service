@@ -4,7 +4,7 @@ Description=Cloud program : init led test
 [Service]
 Type=simple
 User=root
-ExecStart=python3 /home/rpi/interactive_cloud/v1/leds_test.py
+ExecStart=python3 /home/rpi/interactive_cloud/v1/leds_test/led_test.py
 
 [Install]
 WantedBy=multi-user.target
