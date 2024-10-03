@@ -1,0 +1,12 @@
+[Unit]
+Description=Cloud program : clint
+After = cloud_server.service
+
+[Service]
+Type=simple
+User=root
+ExecStartPre=:bin/sleep 15
+ExecStart=python3 /home/rpi/interactive_cloud/v2/main/animation_controller.py
+
+[Install]
+WantedBy=multi-user.target
