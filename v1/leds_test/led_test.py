@@ -30,8 +30,11 @@ def color_cycle(strip, wait_ms=20):
         time.sleep(wait_ms/1000.0)
 
 try:
-    while True:
+    for i in range(1):
         color_cycle(strip)
+
+    strip.fill((0, 0, 0))
+    strip.show()
 except KeyboardInterrupt:
     # Turn off all the LEDs when Ctrl+C is pressed
     strip.fill((0, 0, 0))

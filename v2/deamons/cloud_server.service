@@ -1,0 +1,11 @@
+[Unit]
+Description=Cloud program : server
+After = cloud.service
+
+[Service]
+Type=simple
+User=root
+ExecStart=python3 /home/rpi/interactive_cloud/v2/main/server.py
+
+[Install]
+WantedBy=multi-user.target
