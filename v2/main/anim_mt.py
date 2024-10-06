@@ -129,6 +129,7 @@ def c(stop_event, duration):
     fade_to_black(strip)
     strip.show()
     process.terminate()
+    process.wait()
     print("Animation chill terminée")
 
 
@@ -175,6 +176,7 @@ def r(stop_event, duration):
     fade_to_black(strip)
     strip.show()
     process.terminate()
+    process.wait()
     print("Animation rain terminée")
 
 
